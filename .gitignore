@@ -1,0 +1,8 @@
+config.php
+uploads/
+uploads_stage/
+*.dat
+flutter_application/build/
+flutter_application/.dart_tool/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ファイルアップロード</title>
+    <style>
+        /* ★ ヘッダーCSS (ここから) ★ */
+        .site-header {
+            background-color: #ffffff;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .site-header a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .header-icon {
+            font-size: 28px;
+            margin-right: 12px;
+            color: #007bff;
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .header-title-gray {
+            font-size: 24px;
+            font-weight: bold;
+            color: #888;
+        }
+        /* ★ ヘッダーCSS (ここまで) ★ */
+
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f4f8; margin: 0; padding: 0; }
+        .container { max-width: 600px; width: 100%; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h1 { margin-top: 0; color: #333; }
+        div { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+        input[type="file"], input[type="text"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box; 
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        textarea {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100px;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <a href="index.php">
+        <span class="header-icon">📁</span>
+        <span class="header-title">file</span>
+        <span class="header-title-gray">share</span>
+    </a>
+</header>
+<div class="container">
+    <h1>ファイルをアップロード</h1>
+    <form action="upload.php" method="post" enctype="multipart/form-data" id="uploadForm">
+        <div>
+            <label for="file">ファイル</label>
+            <input type="file" name="file" id="file" required>
+        </div>
+        
+        <div>
+            <label for="title">名前（タイトル）（必須）</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+
+        <div>
+            <label for="description">説明（任意）</label>
+            <textarea name="description" id="description"></textarea>
+        </div>
+
+        <div>
+            <label for="password">ダウンロードパスワード（任意）</label>
+            <input type="text" name="password" id="password">
+        </div>
+        <div>
+            <label for="delete_key">削除キー（必須）</label>
+            <input type="text" name="delete_key" id="delete_key" required>
+        </div>
+        <div>
+            <label for="expiry_days">自動削除（任意）</label>
+            <select name="expiry_days" id="expiry_days">
+                <option value="">削除しない</option>
+                <option value="3">3日後に削除</option>
+                <option value="5">5日後に削除</option>
+                <option value="7">7日後に削除</option>
+            </select>
+        </div>
+        <button type="submit">アップロード</button>
+    </form>
+</div>
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    var deleteKey = document.getElementById('delete_key').value;
+    if (!deleteKey) {
+        alert('削除キーは必須です');
+        event.preventDefault(); 
+    }
+    var title = document.getElementById('title').value;
+    if (!title) {
+        alert('名前（タイトル）は必須です');
+        event.preventDefault();
+    }
+});
+</script>
+</body>
+</html>
